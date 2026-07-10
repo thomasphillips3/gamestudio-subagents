@@ -506,7 +506,11 @@ renderer/rendering_method="forward_plus"
                 
         elif engine in ("Unreal", "Unreal Engine"):
             # Create .uproject file with proper project name
-            project_file_name = project_name.replace(" ", "") if project_name else project_path.name
+            raw_module_name = project_name if project_name else project_path.name
+            # Unreal module names must be valid C++ identifiers (alphanumeric/underscore, no leading digit)
+            project_file_name = "".join(c for c in raw_module_name if c.isalnum() or c == "_") or "Game"
+            if project_file_name[0].isdigit():
+                project_file_name = "Module" + project_file_name
             uproject_file = source_path / f"{project_file_name}.uproject"
             uproject_content = f"""{{
 	"FileVersion": 3,
@@ -515,7 +519,7 @@ renderer/rendering_method="forward_plus"
 	"Description": "",
 	"Modules": [
 		{{
-			"Name": "{project_path.name}",
+			"Name": "{project_file_name}",
 			"Type": "Runtime",
 			"LoadingPhase": "Default"
 		}}
@@ -859,9 +863,9 @@ renderer/rendering_method="forward_plus"
         if project_details.get('development_rules'):
             print("3. Your development rules are configured and will be enforced")
         print("4. Start with Market Analysis:")
-        print("   claude 'Read agents/market_analyst.md and analyze the market for this project'")
+        print("   claude 'Use the gamestudio-market-analyst subagent and analyze the market for this project'")
         print("5. Then activate Producer with rules enforcement:")
-        print("   claude 'Read agents/producer_agent.md and project-config.json. Begin coordinating development and enforce all development rules.'")
+        print("   claude 'Use the gamestudio-producer subagent and project-config.json. Begin coordinating development and enforce all development rules.'")
         print("6. Use project-specific agents (in agents/ folder) - they're customized for your engine!")
         print("\n💡 Your agents are customized for:")
         print(f"   - Engine: {project_details['engine']} v{project_details.get('engine_version', 'latest')}")

@@ -232,7 +232,9 @@ def test_project_files():
                         return False
                 
                 elif engine == "Unreal":
-                    uproject_file = source_path / f"{temp_path.name}.uproject"
+                    # Module/project name is sanitized to a valid Unreal identifier, so match by glob
+                    uproject_candidates = list(source_path.glob("*.uproject"))
+                    uproject_file = uproject_candidates[0] if uproject_candidates else source_path / "missing.uproject"
                     if not uproject_file.exists():
                         print(f"FAIL: {engine} - .uproject not created")
                         return False

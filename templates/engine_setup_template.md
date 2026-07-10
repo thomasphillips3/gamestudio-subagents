@@ -23,7 +23,7 @@
 # project.godot essential settings
 [application]
 config/name="[Project Name]"
-config/features=PackedStringArray("4.4", "Forward Plus")
+config/features=PackedStringArray("4.4", "Forward Plus")  # set to your installed Godot 4.x version
 config/icon="res://icon.svg"
 run/main_scene="res://scenes/Main.tscn"
 
