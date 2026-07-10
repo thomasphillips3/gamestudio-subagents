@@ -102,6 +102,32 @@ Create an executive summary for the Producer Agent with actionable items.
 ### ANTI-FABRICATION Guardrail
 Never invent precise figures. Label every estimate with its method and a confidence level (low/med/high). If you lack a source, say so and give a clearly-labeled range, not a fake exact number.
 
+## Mobile (iOS / Android) Market & Monetization
+
+### Store economics (verify per launch — rules are shifting)
+- Standard commission is **30%** on both the Apple App Store and Google Play for IAP and paid apps.
+- **15% small-business tiers**: Apple's App Store Small Business Program (enrolled developers under **$1M/yr** in proceeds) and Google Play's automatic 15% on each developer's **first $1M of earnings per year** (30% above). Auto-renewing subscriptions bill at 15% on Google Play (all) and drop to 15% on Apple after a subscriber's first year (or immediately under the SBP).
+- **US external-purchase links (unsettled)**: after *Epic v. Apple*, US apps may include external purchase links. Whether Apple may charge a commission on those — and how much — is in active litigation (the Ninth Circuit in Dec 2025 allowed a "reasonable" fee to be set by the district court; the Supreme Court agreed in June 2026 to hear Apple's contempt appeal). Treat US external-payment economics as in flux, not fixed.
+- **EU DMA**: Apple permits alternative app marketplaces and third-party payment processors in the EU under a restructured fee model (Core Technology Fee/Commission tiers); Google faces parallel DMA obligations. Both remain contested with the European Commission — confirm current fee structure before modeling EU economics.
+
+### Monetization models
+- **Hybrid-casual** (casual gameplay monetized by *both* ads and IAP) now dominates new casual launches; pure ads-only hyper-casual has faded as UA costs rose post-ATT.
+- Levers: **IAP** (consumables, battle passes, gacha), **rewarded video** and interstitial ads, and **subscriptions** (VIP / no-ads / season passes).
+- **Conversion**: typically only ~1-5% of active users ever pay; a small share of spenders (often ~1-2% of payers, the "whales") drives the majority of IAP revenue. Ads monetize the large non-paying base.
+
+### ASO (App Store Optimization)
+- On-metadata ranking: app **title**, subtitle/short description, iOS keyword field, and localized **keywords** in title/description on Play.
+- Conversion assets: icon, **screenshots**, preview video, and **ratings/reviews** (volume and recency move both rank and conversion); A/B test via Play Store Experiments and Apple Product Page Optimization.
+- Discoverability reality: for most titles, organic search + charts surface a minority of installs — paid UA (Apple Search Ads, Google App Campaigns) and editorial featuring are usually required to scale.
+
+### Mobile data sources
+- **Sensor Tower**, **data.ai** (formerly App Annie), and **AppMagic** for download/revenue estimates, rankings, and competitor tracking; plus native **store charts** (top free/grossing by category and country). Treat all third-party figures as modeled estimates, not actuals.
+
+### Privacy as a market force (verify status)
+- **iOS**: App Tracking Transparency (**ATT**) gates the **IDFA** behind an opt-in prompt; opt-in is low (~25-35%), so device-level attribution is limited (IDFA is consent-gated, not removed). Measurement moved to aggregated **SKAdNetwork** and its successor **AdAttributionKit** (WWDC 2024; both coexist in 2026, no SKAN deprecation date announced).
+- **Android**: in 2025 Google announced it is **winding down most Privacy Sandbox on Android** technologies (including the Attribution Reporting API) citing low adoption; the feared ATT-style GAID deprecation did **not** happen and the Android advertising ID remains available — so Android UA/measurement is less disrupted than iOS today, though the long-term trend is toward tighter privacy.
+- Net impact: higher effective CPIs and noisier ROAS on iOS, heavier reliance on modeled/aggregated attribution and MMP predictive/SKAN solutions, and a premium on first-party data.
+
 ## Commands
 
 ```

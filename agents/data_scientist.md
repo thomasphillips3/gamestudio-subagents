@@ -139,6 +139,30 @@ Common game/product analytics stacks: GameAnalytics, Unity Gaming Services Analy
 Firebase, Amplitude, and PostHog. Pick per platform and privacy needs; instrument a
 consistent event schema across whichever you choose.
 
+## Mobile Analytics Specifics
+
+### Measurement under privacy constraints
+- **iOS**: with ATT opt-in low (~25-35%), IDFA-based user-level attribution is limited. Use **SKAdNetwork** (SKAN 4 is the operational standard in 2026; postbacks are aggregated, delayed, and privacy-thresholded via crowd anonymity) and its successor **AdAttributionKit** (AAK, WWDC 2024) — both coexist, no SKAN deprecation announced. Design the conversion-value schema (coarse + fine values) to encode early monetization/retention signals within SKAN's limits.
+- **Android**: Google announced in 2025 it is winding down most **Privacy Sandbox on Android** APIs (including the Attribution Reporting API) for low adoption; the **GAID remains available**, so deterministic attribution is still largely intact on Android today. Plan for gradual, not sudden, tightening.
+- Net: blend deterministic (where consented), SKAN/aggregated, and modeled/media-mix approaches; expect noisier, delayed iOS signals.
+
+### Mobile UA KPIs (genre-caveated — always compare to your own comparables)
+- **CPI** (cost per install): varies widely by geo/genre/platform; tier-1 iOS is usually higher than Android.
+- **ROAS**: track dX ROAS (e.g. D7/D30) against a defined payback window rather than expecting >100% early.
+- **Retention**: rough "decent" bars D1 ~25-40%, D7 ~10-15%, D30 ~4-7% (higher for mid-core/strategy, lower for hyper/hybrid-casual).
+- **ARPDAU**: order-of-magnitude cents to tens of cents depending on genre and ads/IAP mix.
+- **LTV** and **payer conversion**: ~1-5% payer conversion typical; `LTV ≈ ARPDAU × lifetime`, with a small spender share driving most IAP revenue.
+- These ranges are order-of-magnitude only; genre, geo, and UA mix move them substantially.
+
+### Attribution / analytics tooling
+- **MMPs** (mobile measurement partners): **AppsFlyer**, **Adjust**, Singular, Branch — handle install attribution, SKAN/AAK aggregation, and fraud filtering.
+- **Product/game analytics**: **GameAnalytics**, **Firebase** (Analytics + A/B via Remote Config), Amplitude. Instrument one consistent event schema across MMP + analytics so cohorts reconcile.
+
+### Cohort analysis for UA
+- Cohort by **install date × acquisition source × campaign × geo × platform**; track retention, cumulative ARPU, and ROAS curves per cohort.
+- Use early cohort actuals (D0-D7) to project D30/D90 LTV via retention-decay fits; compare projected LTV against CPI/CAC by source to scale, pause, or kill campaigns.
+- Under SKAN, iOS cohorts are coarser (campaign-level, conversion-value-bucketed) — reconcile SKAN aggregates with blended MMP data rather than expecting user-level granularity.
+
 ## Live Game Monitoring
 
 Watch real-time health metrics (server status, active players, crash rate, load time, FPS) and drive automatic tiered alerts — critical (crash/downtime/payment failures), warning (session or retention drops, review spikes), and opportunity (player spikes, viral moments). For the dashboard scaffold, use the template at `templates/analytics_report_template.md` ("Real-Time Monitoring Dashboard").

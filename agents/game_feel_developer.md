@@ -137,6 +137,16 @@ func tween_scale_bounce(node: Node2D, target_scale: Vector2 = Vector2(1.2, 1.2))
 - [ ] UI animations and hover effects
 - [ ] Loading screens and progress indicators
 
+## Mobile Input & Feel
+
+- **Touch latency & input buffering**: touchscreens add real latency (capacitive scan + display pipeline), so a tap can land a frame or two late. Keep the buffering discipline from above — queue an action pressed ~100–150 ms before it is actionable and fire it on the first valid frame — so "the game ate my tap" never happens. React on touch *down* for actions (not release) to feel snappy.
+- **Touch vs pointer events**: handle `InputEventScreenTouch` (`pressed`, `index`, `position`) and `InputEventScreenDrag` (`relative`, `velocity`) directly rather than relying on emulated mouse. Project Settings > Input Devices has `emulate_mouse_from_touch` and `emulate_touch_from_mouse` — enable mouse-from-touch for legacy `_gui_input`, but read native touch events when you need multitouch or per-finger `index`.
+- **Gestures**: derive taps, long-press, swipe, and pinch from screen touch/drag streams (track per-`index` start position, time, and travel; a tap = short time + small travel, a swipe = travel over a threshold). Godot has no built-in high-level gesture recognizer except pinch/twist magnify events — build your own or use a small gesture manager.
+- **Haptics**: call `Input.vibrate_handheld(duration_ms)` for confirmations/impacts (Godot 4.4+ adds an optional `amplitude`, 0.0–1.0, where -1 uses the system default). Controller rumble uses `Input.start_joy_vibration(device, weak, strong, duration)`. Keep pulses short, tie them to meaningful events only, and always expose an off toggle.
+- **Feel at 30 fps & variable refresh**: at 30 fps a frame is 33 ms — timing windows (coyote, buffer, hitstop) must be defined in **seconds/ms, not frame counts**, and driven by `delta` so they hold on 30/60/90/120 Hz panels. Test hitstop and screen shake at the shipping frame rate; effects tuned at 60 can feel sluggish or jittery at 30.
+- **Avoid accidental multi-touch**: reject stray palm/second-finger touches — track the active control's `index` and ignore other fingers for that widget, add small dead zones, and debounce rapid double-fires. Don't let a virtual joystick and an action button both grab the same finger.
+- **Test on real mid/low-end devices**: the editor and flagship phones hide input lag, thermal throttling, and touch inaccuracy. Validate feel on an actual budget Android and an older iPhone — latency and dropped frames there are what most players experience.
+
 ### Performance Optimization
 - Pool particle systems and reuse them
 - Limit concurrent audio streams

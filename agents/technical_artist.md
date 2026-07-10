@@ -138,6 +138,17 @@ func get_available_explosion() -> GPUParticles2D:
 - **VRAM-compressed texture import**: in the Import dock set Compress > Mode to **VRAM Compressed** so textures stay compressed in GPU memory. Godot 4 targets **ETC2/ASTC** for mobile/GLES and **BPTC (BC7)** for desktop automatically; prefer ASTC for mobile quality/size. Avoid VRAM compression on pixel art / crisp UI (use Lossless there).
 - **Draw-call batching**: reduce state changes by sharing materials, atlasing textures, and using `MultiMeshInstance2D/3D` for many identical instances (grass, bullets, tiles). Fewer unique materials + shared textures = fewer draw calls; watch the count in the Monitors/rendering profiler.
 
+## Mobile Rendering & Performance (iOS / Android)
+
+- **Renderer choice**: use the **Mobile** renderer (`rendering/renderer/rendering_method.mobile`) for phones/tablets — it is tuned for tiled GPUs (Apple/Adreno/Mali) and lighter than **Forward+** (keep Forward+ for desktop/high-end only). Fall back to **Compatibility** (GLES3/WebGL2) for very low-end Android and web. Match texture formats and effects to the chosen renderer.
+- **Texture VRAM compression**: import textures as **VRAM Compressed**. Target **ASTC** for modern iOS/Android (better quality-per-byte, adjustable block size) and **ETC2** as the baseline for older Android/GLES3. Enable "Import ETC2/ASTC" in export settings. **Never ship uncompressed** color textures on mobile — they blow VRAM and bandwidth (use Lossless only for pixel-art/crisp UI where compression hurts).
+- **Texture/atlas budgets**: keep atlases to power-of-two, prefer 2048² (safe everywhere) over 4096²+ on low-end; atlas UI/props to cut binds. Watch total VRAM in the Monitors panel and budget per device tier (e.g. ~256–512 MB textures on mid-range).
+- **Draw calls & overdraw**: fewer unique materials = fewer draw calls — share materials, atlas textures, and use `MultiMeshInstance2D/3D` for repeated instances (tiles, grass, bullets). On tiled GPUs, **overdraw** (stacked transparent/alpha-blended layers, big fullscreen particles) is a top killer; minimize large translucent quads and clip offscreen content.
+- **Target frame rate**: pick **30 or 60 fps** deliberately. 60 fps doubles GPU/CPU work and heat; many mobile titles ship a stable 30 with a 60 option for flagships. Set `Engine.max_fps` and offer an in-game toggle.
+- **Thermal / battery / sustained performance**: phones boost then **throttle** under heat within minutes — design for the *sustained* clock, not the peak. Leave frame-time headroom, cap FPS, and dynamically drop resolution/effects when frames slip to avoid thermal collapse and battery drain.
+- **Resolution scaling (fragmentation)**: don't render native on high-DPI panels. Use `Viewport` render scaling / 3D `scaling_3d_scale` (or a lower content-scale size) and upscale; a 0.7–0.85 scale often looks fine and reclaims large GPU cost across the device spread.
+- **MSAA on mobile**: MSAA is comparatively **expensive on tiled GPUs** (extra tile bandwidth). Prefer FXAA or 2x MSAA at most on mid-range, and consider disabling it entirely for a 60 fps target; validate on real hardware, not the desktop editor.
+
 ### Deliverables
 - Custom shaders and materials
 - Optimized art assets

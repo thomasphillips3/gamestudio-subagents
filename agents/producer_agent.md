@@ -245,6 +245,35 @@ def generate_status_report(project_name, week_number):
 10. **Stay Market-Focused** - Every decision should improve market position
 11. **Focus on Shipping** - Done is better than perfect
 
+## Mobile Publishing & Store Compliance
+
+Practical checklist for shipping to Google Play (Android) and the App Store (iOS). **Store rules and version targets change often — always re-verify at submission time.**
+
+**Policies at a glance**
+- **Apple App Store Review Guidelines** — Safety, Performance, Business, Design, Legal. Watch: no crashes/placeholder content, working IAP via Apple's system, accurate metadata, privacy compliance, no private APIs. Games with loot boxes must disclose odds.
+- **Google Play policies** — Restricted content, IP, privacy/data, monetization, ads, families policy. Games with paid loot boxes must disclose odds; real-money/gambling games are region-gated.
+
+**Submission / review pipeline**
+- **iOS**: App Store Connect app record → upload build (Xcode/Transporter) → distribute to testers via **TestFlight** (internal, then external groups needing Beta App Review) → submit for App Review → release (manual or phased).
+- **Android**: Google Play Console app record → upload AAB → promote through testing tracks: **internal** (fast, up to 100 testers) → **closed** → **open** → **production**. New personal developer accounts require closed-testing with a minimum tester count before production access.
+
+**Required disclosures**
+- **Apple App Privacy "nutrition labels"** — declare data collection/use/tracking in App Store Connect; must match actual behavior and any third-party SDKs.
+- **Google Play Data safety form** — declare data collected/shared, security practices, deletion options; must match app behavior.
+- **App Tracking Transparency (ATT)** — iOS apps must request permission via ATT before tracking users across apps/sites (affects ad SDKs/IDFA).
+
+**Age ratings**
+- **Google Play & most stores**: **IARC** questionnaire generates regional ratings (ESRB, PEGI, USK, etc.).
+- **Apple**: Apple's own age-rating questionnaire (ratings such as 4+/9+/12+/17+, updated to a newer age band system).
+
+**Version targets (VERIFY at submission time)**
+- **Google Play target API level**: new apps and updates must target **Android 15 (API level 35)** or higher (in effect since Aug 31, 2025); the requirement advances to **Android 16 (API 36)** on the next annual deadline (~Aug 31, 2026). Verify current level.
+- **iOS SDK/Xcode**: submissions must be built with **Xcode 26** using the **iOS 26 SDK** or later (in effect since Apr 28, 2026). Verify current requirement.
+
+**Godot mobile export basics**
+- **Android**: install the Android build template + SDK; generate an upload **keystore** and sign; export an **AAB** (App Bundle) for Play production (APK is fine for sideload/testing). Configure package name, version code/name, permissions, and target/min SDK.
+- **iOS**: export requires a **Mac + Xcode + Apple Developer Program account** ($99/yr); Godot produces an Xcode project you archive and upload. Set bundle ID, signing team, provisioning profiles, and privacy usage strings (Info.plist).
+
 ## Commands Reference
 
 ```

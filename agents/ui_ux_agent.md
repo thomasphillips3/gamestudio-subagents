@@ -214,6 +214,17 @@ func button_press_feedback(button: Button):
   - Support text scaling (expose a UI-scale/font-size option feeding the Theme's font sizes).
   - Meet **WCAG 4.5:1** contrast for normal text (3:1 for large/bold).
 
+## Mobile UX (iOS / Android)
+
+- **Platform guidelines at a glance**: Apple **Human Interface Guidelines (HIG)** and Google **Material 3** are the baseline. Both push large tap targets, clear hierarchy, respect for system gestures/safe areas, and honoring the user's system settings (text size, reduce motion, dark mode). Don't fight platform conventions (back gesture on Android, home-indicator swipe on iOS).
+- **Minimum touch targets**: **44x44 pt (iOS HIG)** and **48x48 dp (Android/Material)**. In Godot set `custom_minimum_size` on tappable Controls and expand the hit area with transparent margins rather than shrinking the art. Space adjacent targets ~8 dp apart to avoid mis-taps.
+- **Thumb zone / reachability (one-handed play)**: on tall phones the top corners are hard to reach one-handed. Put primary/frequent actions in the lower-center "easy" arc; reserve top areas for status/read-only HUD. Anchor action buttons to the bottom bar (bottom-wide layout preset).
+- **Safe areas, notches, Dynamic Island, display cutouts**: query `DisplayServer.get_display_safe_area()` (returns a `Rect2i` in pixels) and inset the root `Control` / HUD so critical UI clears notches, the Dynamic Island, rounded corners, and the gesture bar. Keep decorative backgrounds full-bleed; keep interactive/important UI inside the safe rect. Re-query on `size_changed` / orientation change.
+- **Orientation handling**: lock or support both via Project Settings > Display > Window > Handheld > `orientation` (e.g. `portrait`, `sensor_landscape`). If supporting both, rebuild layout on `get_viewport().size_changed` and re-read the safe area — a rotated notch moves the insets.
+- **Adaptive layouts (aspect ratios & DPIs)**: target the range ~19.5:9 to 4:3 (phones to tablets/foldables). Use anchors + `HBox/VBox/GridContainer` with `SIZE_EXPAND_FILL` and `size_flags_stretch_ratio` instead of fixed pixel positions. Set Stretch `mode = canvas_items` with aspect `expand` for DPI/resolution independence; test at both 320-dp and tablet widths.
+- **On-screen touch controls**: draw virtual joystick/buttons as `TextureButton`/`TouchScreenButton`; make them semi-transparent, generously sized, and **repositionable/resizable by the player** (drag-to-place in a settings/edit mode, persisted to a config file). Offer a dead zone and left/right-hand presets.
+- **Haptics**: fire short `Input.vibrate_handheld()` pulses on meaningful confirmations (not every tap) and expose a toggle — many players disable vibration for battery. Keep it subtle and consistent with platform feel.
+
 ### Deliverables
 - UI wireframes and mockups
 - Interactive prototype in Godot

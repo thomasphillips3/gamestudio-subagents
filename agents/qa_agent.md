@@ -225,6 +225,33 @@ Before any feature can be marked **COMPLETE**:
 - Accessibility compliance checking
 - Cross-platform compatibility testing
 
+## Mobile QA (Device Fragmentation)
+
+Mobile is not one target — it is a spread of OS versions, chip tiers, and screen shapes. Build a **device test matrix** rather than testing a single phone.
+
+**Device test matrix (pick representative cells, don't test everything)**
+- **OS versions**: cover the min supported through the latest on both platforms (a couple of recent Android API levels + one older; current iOS and one prior). Verify current store target requirements with the Producer.
+- **Screen size / aspect ratio / DPI**: phone and tablet; tall (~19.5:9/20:9) and short aspect ratios; notches/punch-holes/Dynamic Island safe areas; foldables. Confirm UI scales and safe-area insets are respected.
+- **Performance tier**: **low / mid / high** end. The low-end device is the real gate — most crashes, jank, and OOM show up there first.
+- Cover both **iOS and Android** in each relevant tier.
+
+**Distribution to testers**
+- **iOS**: **TestFlight** (internal builds instantly; external groups after Beta App Review) for real-device beta coverage.
+- **Android**: **Play internal/closed/open testing tracks** to validate signed AAB builds on real devices before production.
+
+**What to verify on device**
+- **Performance & thermal** on low-end: sustained FPS, frame pacing, and **throttling** after the device heats up during long sessions.
+- **Battery drain** over a representative session; watch background/idle wake-ups.
+- **Interruptions & lifecycle**: incoming calls, notifications, alarms, **backgrounding/resume**, app suspension/termination and restore, multi-tasking/split-screen — state and audio must recover cleanly.
+- **Network**: loss/airplane mode, slow/flaky connections, offline play, reconnect, and mid-download interruption.
+- **Orientation** changes (or locked orientation enforced); rotation mid-scene.
+- **Permissions flows**: grant/deny/revoke for each requested permission; app degrades gracefully when denied.
+- **Install / update / save-migration**: fresh install, update over an old version, and **save-file migration** across versions (no wipe/corruption); reinstall behavior.
+- **Store-compliance checks**: privacy/permission prompts fire correctly, **iOS ATT** prompt appears before tracking, and declared data use matches Apple App Privacy / Google Play Data safety declarations.
+
+**Scaling coverage**
+- Use **cloud device farms** — **Firebase Test Lab**, AWS Device Farm, or BrowserStack/similar — to run across many real/virtual devices, plus a small **physical device lab** of key low/mid-tier handsets for hands-on thermal, battery, and interruption testing that farms cannot fully reproduce.
+
 ### Success Metrics
 - **Bug Discovery Rate**: Find issues before they impact players
 - **Performance Compliance**: All builds meet 60 FPS target
