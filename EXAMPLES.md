@@ -44,7 +44,7 @@ python scripts/init_project.py
 # Choose: Prototype mode, Rapid timeline
 
 # Step 2: Build the prototype
-claude "Read agents/producer_agent_v2.md. I want to test if [describe mechanic] is fun. Create a playable prototype."
+claude "Read agents/producer_agent.md. I want to test if [describe mechanic] is fun. Create a playable prototype."
 
 # Result: Playable prototype in 2-3 days
 ```
@@ -113,7 +113,7 @@ claude "Read agents/producer_agent.md and project-config.json. Start development
 ### Managing Development
 
 ```markdown
-"Read agents/producer_agent_v2.md and give me a daily standup report"
+"Read agents/producer_agent.md and give me a daily standup report"
 
 "Read agents/qa_agent.md and create a testing checklist for this week's milestone"
 ```
@@ -178,19 +178,19 @@ claude "Read projects/[your-game]/project-config.json first, then continue with 
 
 ### "I want to change direction mid-project"
 ```bash
-claude "Read agents/producer_agent_v2.md. I want to pivot the project. Current: [what it is]. New direction: [what you want]. Create a transition plan."
+claude "Read agents/producer_agent.md. I want to pivot the project. Current: [what it is]. New direction: [what you want]. Create a transition plan."
 ```
 
 ### "Development is taking too long"
 ```bash
-claude "Read agents/producer_agent_v2.md. Analyze current velocity and suggest scope cuts to meet our deadline."
+claude "Read agents/producer_agent.md. Analyze current velocity and suggest scope cuts to meet our deadline."
 ```
 
 ## 📈 Metrics and Reporting
 
 ### Get Project Status
 ```bash
-claude "Read agents/producer_agent_v2.md and generate a complete status report for week [X]"
+claude "Read agents/producer_agent.md and generate a complete status report for week [X]"
 ```
 
 ### Track Progress

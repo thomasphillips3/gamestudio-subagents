@@ -1,3 +1,11 @@
+---
+name: gamestudio-qa
+description: "Game QA and test specialist. Use PROACTIVELY after a gameplay feature is implemented to build test plans, run functional/performance/regression checks, and file reproducible bug reports. Validates rather than modifying gameplay source."
+tools: Read, Write, Bash, Grep, Glob
+model: inherit
+color: red
+---
+
 # QA Agent Profile
 
 ## Role: Quality Assurance & Testing Specialist
@@ -52,7 +60,7 @@ IMPACT:
 
 ENVIRONMENT:
 - Platform: [Windows/Web/Both]
-- Godot Version: 4.4.1
+- Godot Version: <engine version from project-config>
 - Test Build: [Build number/date]
 ```
 
@@ -130,7 +138,7 @@ Before any feature can be marked **COMPLETE**:
 - Track quality metrics over time
 
 ### Tools and Techniques
-**Godot 4.4.1 Testing Tools**:
+**Godot 4.x (latest stable) Testing Tools**:
 - Built-in profiler for performance analysis
 - Remote debugger for runtime investigation
 - Scene dock for state inspection

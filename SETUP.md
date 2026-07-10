@@ -193,7 +193,7 @@ claude "I want to create a [type] game. Read agents/master_orchestrator.md and h
 gamestudio-subagents/
 ├── agents/                    # All agent templates
 │   ├── master_orchestrator.md # Main controller
-│   ├── producer_agent_v2.md   # Project manager
+│   ├── producer_agent.md   # Project manager
 │   └── [other agents].md      # Specialized agents
 ├── scripts/
 │   └── init_project.py        # Project initializer
@@ -269,7 +269,7 @@ python scripts/init_project.py
 # Select: Prototype mode, Rapid timeline
 
 # 2. Focus on core mechanics
-claude "Read agents/producer_agent_v2.md and create a working prototype in 3 days"
+claude "Read agents/producer_agent.md and create a working prototype in 3 days"
 ```
 
 ### Workflow 4: Projects with Custom Development Rules
@@ -318,7 +318,7 @@ Common rules you might want to set:
 "Read the project-config.json in projects/[name] and give me a status update"
 
 # Transition between phases
-"Read agents/producer_agent_v2.md and transition from design to development"
+"Read agents/producer_agent.md and transition from design to development"
 ```
 
 ### Best Practices
@@ -426,7 +426,7 @@ npm install -g @mermaid-js/mermaid-cli
 ### Getting Help
 
 1. **Check agent documentation** - Each agent has detailed instructions
-2. **Review example workflows** - See `example_workflows.md`
+2. **Review example workflows** - See `EXAMPLES.md`
 3. **GitHub Issues** - Report bugs or request features
 4. **Community Discord** - Join discussions (link in README)
 
@@ -439,7 +439,7 @@ To create a custom agent:
 1. Copy an existing agent template
 2. Modify responsibilities and protocols
 3. Update `master_orchestrator.md` to recognize new agent
-4. Add to appropriate workflow in `producer_agent_v2.md`
+4. Add to appropriate workflow in `producer_agent.md`
 
 ### Integration with External Tools
 
@@ -506,7 +506,7 @@ jobs:
 ## Support
 
 - **Documentation**: See README.md
-- **Examples**: Check example_workflows.md
+- **Examples**: Check EXAMPLES.md
 - **Issues**: GitHub Issues page
 - **Community**: Join our Discord
 

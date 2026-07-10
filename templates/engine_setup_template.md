@@ -14,7 +14,7 @@
 *Use this section if Engine = Godot*
 
 ### Project Configuration
-**Godot Version**: 4.4.1 (or latest stable)  
+**Godot Version**: latest stable Godot 4.x  
 **Rendering API**: Forward+ (for 3D) / Compatibility (for 2D/older hardware)  
 **Target Platforms**: [Selected platforms]
 

@@ -31,7 +31,7 @@ class ProjectInitializer:
         # Engine-specific directory structure
         if engine == "Unity":
             directories = self.get_unity_structure(project_name)
-        elif engine == "Unreal":
+        elif engine in ("Unreal", "Unreal Engine"):
             directories = self.get_unreal_structure(project_name)
         else:  # Godot default
             directories = self.get_godot_structure(project_name)
@@ -504,13 +504,13 @@ renderer/rendering_method="forward_plus"
             with open(packages_manifest, 'w') as f:
                 f.write(manifest_content)
                 
-        elif engine == "Unreal Engine":
+        elif engine in ("Unreal", "Unreal Engine"):
             # Create .uproject file with proper project name
             project_file_name = project_name.replace(" ", "") if project_name else project_path.name
             uproject_file = source_path / f"{project_file_name}.uproject"
             uproject_content = f"""{{
 	"FileVersion": 3,
-	"EngineAssociation": "5.3",
+	"EngineAssociation": "5.6",
 	"Category": "",
 	"Description": "",
 	"Modules": [
@@ -862,7 +862,7 @@ renderer/rendering_method="forward_plus"
         print("   claude 'Read agents/market_analyst.md and analyze the market for this project'")
         print("5. Then activate Producer with rules enforcement:")
         print("   claude 'Read agents/producer_agent.md and project-config.json. Begin coordinating development and enforce all development rules.'")
-        print("5. Use project-specific agents (in agents/ folder) - they're customized for your engine!")
+        print("6. Use project-specific agents (in agents/ folder) - they're customized for your engine!")
         print("\n💡 Your agents are customized for:")
         print(f"   - Engine: {project_details['engine']} v{project_details.get('engine_version', 'latest')}")
         print(f"   - Platform: {project_details['platform']}")

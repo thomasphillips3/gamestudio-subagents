@@ -1,6 +1,6 @@
 {
   "engine": "Godot",
-  "version": "4.4.1",
+  "version": "4.6",
   "project_structure": {
     "source": {
       "scenes": "Main game scenes (.tscn files)",
