@@ -201,6 +201,19 @@ func button_press_feedback(button: Button):
 - [ ] Text is readable at all supported resolutions
 - [ ] Color-blind users can distinguish important elements
 
+## Godot 4 UI Specifics
+
+- **Responsive UI via anchors + containers, not breakpoint code**: set anchors with the layout presets (Full Rect, Center, bottom-bar, etc.) in the Layout menu so Controls reflow with the viewport. Nest `HBoxContainer`/`VBoxContainer`/`GridContainer` and drive proportions with each child's `size_flags_horizontal = SIZE_EXPAND_FILL` plus `size_flags_stretch_ratio`. For global scaling set Project Settings > Display > Window > Stretch: `stretch_mode = "canvas_items"` and `content_scale_mode` with an aspect of `expand` (or `keep`), giving resolution independence without per-device layout logic.
+- **Gamepad/keyboard navigation**: wire `focus_neighbor_top/bottom/left/right` (and `focus_next`/`focus_previous`) on each Control so a controller can traverse the UI; call `grab_focus()` on the default control when a menu opens so there is always a focused element. Ensure the input map has `ui_up/ui_down/ui_left/ui_right/ui_accept/ui_cancel` bound.
+- **Theme resources vs `theme_override_*`**: define a project-wide `Theme` resource (type-scoped default fonts, colors, StyleBoxes) and assign it once high in the tree — it cascades to children. Use per-node `theme_override_*` properties (e.g. `theme_override_colors/font_color`, `theme_override_styles/normal`) only for intentional one-off exceptions, not as the primary styling method.
+- **Safe area / notch on mobile**: query `DisplayServer.get_display_safe_area()` and inset the root Control (or anchor HUD elements inward) so critical UI clears notches, rounded corners, and gesture bars.
+- **Accessibility**:
+  - Minimum touch target **44x44 pt (iOS) / 48x48 dp (Android)** — set `custom_minimum_size` on tappable Controls; expand hit area with margins rather than shrinking visuals.
+  - Never encode information in color alone — pair color with icon, shape, text, or pattern (colorblind-safe).
+  - Remappable controls via a rebindable `InputMap` (capture events with `InputEventKey`/`InputEventJoypadButton`, persist to a config file).
+  - Support text scaling (expose a UI-scale/font-size option feeding the Theme's font sizes).
+  - Meet **WCAG 4.5:1** contrast for normal text (3:1 for large/bold).
+
 ### Deliverables
 - UI wireframes and mockups
 - Interactive prototype in Godot

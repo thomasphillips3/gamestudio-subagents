@@ -126,6 +126,18 @@ func get_available_explosion() -> GPUParticles2D:
 - Frame time analysis
 - Bottleneck identification
 
+## Rendering & Optimization (Godot 4)
+
+- **Renderer choice is the primary perf lever**: pick the rendering method in Project Settings > Rendering > Renderer (`rendering/renderer/rendering_method`):
+  - **Forward+** — desktop/high-end; clustered lighting, SDFGI, full post; heaviest.
+  - **Mobile** — phones/tablets and low-end desktop; lighter feature set, tuned for tiler GPUs.
+  - **Compatibility** — OpenGL ES 3.0 / WebGL 2; widest reach (old hardware, web), fewest features.
+  Set this early; it changes which effects and texture formats are available.
+- **`WorldEnvironment` for "juice"**: add a `WorldEnvironment` node with an `Environment` resource to drive **glow/bloom** (`glow_enabled`, bloom, HDR threshold) and **tonemapping** (`tonemap_mode` — e.g. ACES/Filmic — with exposure/white). This gives cheap, global visual polish. Glow requires an HDR-capable renderer (Forward+/Mobile).
+- **2D full-screen post**: overlay a `ColorRect` (or `TextureRect`) sized to the viewport with a `canvas_item` shader material for effects (vignette, chromatic aberration, color grade). To read what's already drawn beneath, use a `BackBufferCopy` node and sample `SCREEN_TEXTURE`, or wrap sprites in a `CanvasGroup` so they composite as one unit before the effect.
+- **VRAM-compressed texture import**: in the Import dock set Compress > Mode to **VRAM Compressed** so textures stay compressed in GPU memory. Godot 4 targets **ETC2/ASTC** for mobile/GLES and **BPTC (BC7)** for desktop automatically; prefer ASTC for mobile quality/size. Avoid VRAM compression on pixel art / crisp UI (use Lossless there).
+- **Draw-call batching**: reduce state changes by sharing materials, atlasing textures, and using `MultiMeshInstance2D/3D` for many identical instances (grass, bullets, tiles). Fewer unique materials + shared textures = fewer draw calls; watch the count in the Monitors/rendering profiler.
+
 ### Deliverables
 - Custom shaders and materials
 - Optimized art assets

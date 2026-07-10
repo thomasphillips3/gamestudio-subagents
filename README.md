@@ -122,6 +122,12 @@ See [INSTALL.md](INSTALL.md) for every option (project scope, local plugin dev, 
 Use the gamestudio-orchestrator agent to start a new game project.
 ```
 
+…or run the bundled command, which interviews you and chains the specialists in order:
+
+```
+/new-game a cozy farming roguelike
+```
+
 **Optional — scaffold a project workspace** (folders + `project-config.json`):
 
 ```bash

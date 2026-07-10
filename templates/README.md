@@ -12,6 +12,9 @@ a project's `documentation/` (or let an agent generate them for you).
 | `engine_setup_template.md` | Engine bootstrap notes (Godot / Unity / Unreal) |
 | `handoff_template.md` | Structured agent-to-agent handoff |
 | `project_config_template.json` | Canonical `project-config.json` shape |
+| `production_report_template.md` | Producer status/plan/milestone report scaffolds |
+| `market_report_template.md` | Market overview + competitor analysis scaffolds |
+| `analytics_report_template.md` | Analytics setup, A/B, and weekly data-science report scaffolds |
 | `template_info.md` | Notes on how the templates fit together |
 
 Engine versions in these templates are illustrative — verify the current stable release of

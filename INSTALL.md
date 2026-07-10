@@ -45,7 +45,8 @@ Use the gamestudio-orchestrator agent to start a new game project.
 ```
 
 Or let automatic delegation kick in, e.g. *"Analyze the market for a cozy farming roguelike"*
-should route to `gamestudio-market-analyst`.
+should route to `gamestudio-market-analyst`. The plugin also ships a `/new-game` command
+that runs the intake interview and chains the specialists in sequence.
 
 ## The 12 agents
 

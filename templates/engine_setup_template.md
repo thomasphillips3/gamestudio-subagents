@@ -32,14 +32,26 @@ renderer/rendering_method="forward_plus"
 textures/vram_compression/import_etc2_astc=true
 
 [input]
-# Define input map for all platforms
-# Example:
-move_left={
-    "deadzone": 0.5,
-    "events": [
-        Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":65,"key_label":0,"unicode":97,"echo":false,"script":null)
-    ]
-}
+# Do not hand-write serialized InputEvent resources here.
+# Define your input actions in the editor: Project Settings -> Input Map.
+#   1. Add an action name (e.g. "move_left", "jump", "fire").
+#   2. Assign key / mouse / gamepad events to each action.
+# Godot writes the [input] entries for you and keeps them platform-portable.
+```
+
+Then read those actions in code by name (never by raw keycode):
+```gdscript
+func _physics_process(delta: float) -> void:
+    # Held down this frame (continuous movement)
+    if Input.is_action_pressed("move_left"):
+        velocity.x -= speed * delta
+
+    # True only on the frame the action was first pressed (discrete actions)
+    if Input.is_action_just_pressed("jump"):
+        jump()
+
+    # Analog axis (e.g. gamepad stick / paired actions), range 0.0..1.0
+    var move := Input.get_axis("move_left", "move_right")
 ```
 
 #### Folder Structure
@@ -132,7 +144,7 @@ source/
     "com.unity.inputsystem": "1.7.0",
     "com.unity.render-pipelines.universal": "14.0.9",
     "com.unity.textmeshpro": "3.0.6",
-    "com.unity.analytics": "4.4.0",
+    "com.unity.services.analytics": "5.1.1",
     "com.unity.cinemachine": "2.9.7",
     "com.unity.postprocessing": "3.2.2"
   }
@@ -151,24 +163,36 @@ source/
 - **Object Pooling**: For frequently instantiated objects
 
 #### Analytics Integration
+Uses **Unity Gaming Services (UGS) Analytics** (package `com.unity.services.analytics`).
+The legacy `Unity.Analytics` / `Analytics.CustomEvent` API is deprecated.
 ```csharp
-using Unity.Analytics;
+using System.Collections.Generic;
+using Unity.Services.Core;
+using Unity.Services.Analytics;
 using UnityEngine;
 
 public class AnalyticsManager : MonoBehaviour
 {
+    // Initialize UGS once at startup and start data collection
+    // (only after obtaining player consent).
+    private async void Awake()
+    {
+        await UnityServices.InitializeAsync();
+        AnalyticsService.Instance.StartDataCollection();
+    }
+
     public static void TrackPlayerAction(string action, Vector3 location)
     {
-        var eventData = new Dictionary<string, object>
+        var customEvent = new CustomEvent("player_action")
         {
-            {"action", action},
-            {"location_x", location.x},
-            {"location_y", location.y},
-            {"location_z", location.z},
-            {"timestamp", System.DateTime.UtcNow.ToString()}
+            { "action", action },
+            { "location_x", location.x },
+            { "location_y", location.y },
+            { "location_z", location.z }
         };
-        
-        Analytics.CustomEvent("player_action", eventData);
+
+        AnalyticsService.Instance.RecordEvent(customEvent);
+        // Events are batched; Flush() forces an immediate upload if needed.
     }
 }
 ```
