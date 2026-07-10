@@ -148,7 +148,7 @@ def test_folder_structures():
     for engine, method_name in engines.items():
         try:
             method = getattr(initializer, method_name)
-            structure = method()
+            structure = method("TestProject")
             
             if not structure or len(structure) == 0:
                 print(f"FAIL: {engine} structure is empty")
@@ -201,9 +201,9 @@ def test_project_files():
             
             try:
                 # Create engine-specific files
-                initializer.create_engine_files(temp_path, engine)
+                initializer.create_engine_files(temp_path, engine, "test-project")
                 
-                source_path = temp_path / "source"
+                source_path = temp_path / "source" / "project-test-project"
                 
                 if engine == "Godot":
                     project_file = source_path / "project.godot"
@@ -232,7 +232,9 @@ def test_project_files():
                         return False
                 
                 elif engine == "Unreal":
-                    uproject_file = source_path / f"{temp_path.name}.uproject"
+                    # Module/project name is sanitized to a valid Unreal identifier, so match by glob
+                    uproject_candidates = list(source_path.glob("*.uproject"))
+                    uproject_file = uproject_candidates[0] if uproject_candidates else source_path / "missing.uproject"
                     if not uproject_file.exists():
                         print(f"FAIL: {engine} - .uproject not created")
                         return False

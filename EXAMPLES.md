@@ -11,10 +11,10 @@ python scripts/init_project.py
 # Include competitor games when prompted
 
 # Step 2: Start with Market Analysis
-claude "Read agents/market_analyst.md. Analyze the market for my game idea and provide a Go/No-Go recommendation."
+claude "Use the gamestudio-market-analyst subagent. Analyze the market for my game idea and provide a Go/No-Go recommendation."
 
 # Step 3: If market looks good, proceed with design
-claude "Read agents/master_orchestrator.md and begin the design phase with market insights."
+claude "Use the gamestudio-orchestrator subagent and begin the design phase with market insights."
 
 # Result: Market-validated game design with competitive positioning and data-driven recommendations
 ```
@@ -27,7 +27,7 @@ python scripts/init_project.py
 # Choose: Mobile, Casual audience, Development mode, Short timeline
 
 # Step 2: Start development
-claude "Read agents/master_orchestrator.md and begin mobile game development. Focus on simple, engaging mechanics."
+claude "Use the gamestudio-orchestrator subagent and begin mobile game development. Focus on simple, engaging mechanics."
 
 # The agents will:
 # - Week 1: Design and prototype core mechanic
@@ -44,7 +44,7 @@ python scripts/init_project.py
 # Choose: Prototype mode, Rapid timeline
 
 # Step 2: Build the prototype
-claude "Read agents/producer_agent_v2.md. I want to test if [describe mechanic] is fun. Create a playable prototype."
+claude "Use the gamestudio-producer subagent. I want to test if [describe mechanic] is fun. Create a playable prototype."
 
 # Result: Playable prototype in 2-3 days
 ```
@@ -57,7 +57,7 @@ python scripts/init_project.py
 # Choose: Design Only mode
 
 # Step 2: Analyze for multiple engines
-claude "Read agents/master_orchestrator.md. I have a game design. Evaluate implementation for Godot, Unity, and Unreal. Provide timelines and recommendations for each."
+claude "Use the gamestudio-orchestrator subagent. I have a game design. Evaluate implementation for Godot, Unity, and Unreal. Provide timelines and recommendations for each."
 
 # Result: Detailed comparison and recommendations for each engine
 ```
@@ -70,7 +70,7 @@ python scripts/init_project.py
 # Choose: PC, Core audience, Development mode, Medium timeline
 
 # Step 2: AI team handles all aspects
-claude "Read agents/master_orchestrator.md. I'm a solo developer. Activate all agents to help me create a complete indie game. I'll handle the coding, but need help with design, art direction, and QA."
+claude "Use the gamestudio-orchestrator subagent. I'm a solo developer. Activate all agents to help me create a complete indie game. I'll handle the coding, but need help with design, art direction, and QA."
 
 # Agents will provide:
 # - Complete design documentation
@@ -94,7 +94,7 @@ python scripts/init_project.py
 # - "Use object pooling for enemies and projectiles"
 
 # Step 2: Producer enforces rules
-claude "Read agents/producer_agent.md and project-config.json. Start development and ensure all code follows our development rules strictly."
+claude "Use the gamestudio-producer subagent and project-config.json. Start development and ensure all code follows our development rules strictly."
 
 # Result: All agent-generated code follows your standards
 # Producer will reject any code that violates the rules
@@ -105,27 +105,27 @@ claude "Read agents/producer_agent.md and project-config.json. Start development
 ### Working with Design Mode
 
 ```markdown
-"Read agents/sr_game_designer.md and explore 5 different directions for my puzzle game concept"
+"Use the gamestudio-sr-designer subagent and explore 5 different directions for my puzzle game concept"
 
-"Read agents/sr_game_artist.md and create 3 distinct art styles for my game to choose from"
+"Use the gamestudio-sr-artist subagent and create 3 distinct art styles for my game to choose from"
 ```
 
 ### Managing Development
 
 ```markdown
-"Read agents/producer_agent_v2.md and give me a daily standup report"
+"Use the gamestudio-producer subagent and give me a daily standup report"
 
-"Read agents/qa_agent.md and create a testing checklist for this week's milestone"
+"Use the gamestudio-qa subagent and create a testing checklist for this week's milestone"
 ```
 
 ### Getting Specific Help
 
 ```markdown
-"Read agents/game_feel_developer.md and suggest 10 ways to add juice to my jump mechanic"
+"Use the gamestudio-game-feel-developer subagent and suggest 10 ways to add juice to my jump mechanic"
 
-"Read agents/ui_ux_agent.md and design an intuitive inventory system for mobile"
+"Use the gamestudio-ui-ux subagent and design an intuitive inventory system for mobile"
 
-"Read agents/technical_artist.md and optimize my particle effects for better performance"
+"Use the gamestudio-technical-artist subagent and optimize my particle effects for better performance"
 ```
 
 ## 📊 Sample Project Timelines
@@ -151,22 +151,22 @@ claude "Read agents/producer_agent.md and project-config.json. Start development
 
 ### Platformer
 ```bash
-claude "Read agents/mechanics_developer.md. Design physics-based movement with coyote time, jump buffering, and variable jump height."
+claude "Use the gamestudio-mechanics-developer subagent. Design physics-based movement with coyote time, jump buffering, and variable jump height."
 ```
 
 ### RPG
 ```bash
-claude "Read agents/mid_game_designer.md. Create a character progression system with 5 classes, 20 levels, and 50+ skills."
+claude "Use the gamestudio-mid-designer subagent. Create a character progression system with 5 classes, 20 levels, and 50+ skills."
 ```
 
 ### Puzzle
 ```bash
-claude "Read agents/sr_game_designer.md. Design 50 puzzle levels with gradually increasing difficulty and new mechanics every 10 levels."
+claude "Use the gamestudio-sr-designer subagent. Design 50 puzzle levels with gradually increasing difficulty and new mechanics every 10 levels."
 ```
 
 ### Strategy
 ```bash
-claude "Read agents/sr_game_designer.md and mid_game_designer.md. Create a resource management system with 4 resources, tech tree, and unit production."
+claude "Use the gamestudio-sr-designer subagent and mid_game_designer.md. Create a resource management system with 4 resources, tech tree, and unit production."
 ```
 
 ## 🔧 Troubleshooting Common Issues
@@ -178,19 +178,19 @@ claude "Read projects/[your-game]/project-config.json first, then continue with 
 
 ### "I want to change direction mid-project"
 ```bash
-claude "Read agents/producer_agent_v2.md. I want to pivot the project. Current: [what it is]. New direction: [what you want]. Create a transition plan."
+claude "Use the gamestudio-producer subagent. I want to pivot the project. Current: [what it is]. New direction: [what you want]. Create a transition plan."
 ```
 
 ### "Development is taking too long"
 ```bash
-claude "Read agents/producer_agent_v2.md. Analyze current velocity and suggest scope cuts to meet our deadline."
+claude "Use the gamestudio-producer subagent. Analyze current velocity and suggest scope cuts to meet our deadline."
 ```
 
 ## 📈 Metrics and Reporting
 
 ### Get Project Status
 ```bash
-claude "Read agents/producer_agent_v2.md and generate a complete status report for week [X]"
+claude "Use the gamestudio-producer subagent and generate a complete status report for week [X]"
 ```
 
 ### Track Progress
@@ -200,7 +200,7 @@ claude "Read the project-config.json and show me percentage complete for each mi
 
 ### Performance Analysis
 ```bash
-claude "Read agents/qa_agent.md and analyze our bug trend over the last 2 weeks"
+claude "Use the gamestudio-qa subagent and analyze our bug trend over the last 2 weeks"
 ```
 
 ## 📁 Project Management Examples
@@ -234,7 +234,7 @@ python scripts/project_manager.py resume mobile-rpg
 python scripts/init_project.py
 
 # Work on it for a while...
-claude "Read agents/master_orchestrator.md and continue my project"
+claude "Use the gamestudio-orchestrator subagent and continue my project"
 
 # Need to pause? Freeze it
 python scripts/project_manager.py freeze my-game

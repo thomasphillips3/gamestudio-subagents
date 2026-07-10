@@ -97,29 +97,42 @@ claude auth login
 
 ### Installation
 
+**Install the 12 agents as native Claude Code subagents.** Easiest is the plugin marketplace
+(this repo *is* the marketplace):
+
+```
+/plugin marketplace add thomasphillips3/gamestudio-subagents
+/plugin install gamestudio-subagents@gamestudio
+```
+
+…or copy them into your agents folder:
+
 ```bash
-# 1. Clone the repository
-git clone https://github.com/pamirtuna/gamestudio-subagents.git
+git clone https://github.com/thomasphillips3/gamestudio-subagents.git
 cd gamestudio-subagents
+./install.sh            # -> ~/.claude/agents/   (Windows: ./install.ps1)
+```
 
-# 2. Optional: Create virtual environment (recommended)
-python -m venv venv
+Restart Claude Code and run `/agents` to confirm the `gamestudio-*` agents are listed.
+See [INSTALL.md](INSTALL.md) for every option (project scope, local plugin dev, etc.).
 
-# Activate virtual environment
-# Windows:
-venv\Scripts\activate
-# macOS/Linux:
-source venv/bin/activate
+**Use the team** — let automatic delegation route work, or invoke an agent explicitly:
 
-# 3. Create your first project
-python scripts/init_project.py
-# Creates: projects/[your-game-name]/
+```
+Use the gamestudio-orchestrator agent to start a new game project.
+```
 
-# 4. Start development with Claude
-claude "Read agents/market_analyst.md and the project-config.json in projects/[project-name]. Perform a comprehensive market analysis and generate all reports."
+…or run the bundled command, which interviews you and chains the specialists in order:
 
-# 5. Manage your projects
-python scripts/project_manager.py
+```
+/new-game a cozy farming roguelike
+```
+
+**Optional — scaffold a project workspace** (folders + `project-config.json`):
+
+```bash
+python3 scripts/init_project.py      # creates projects/[your-game-name]/
+python3 scripts/project_manager.py   # manage existing projects
 ```
 
 That's it! Your AI game development team is ready to help.
@@ -499,12 +512,13 @@ Handle multiple games simultaneously:
 
 ## 📖 Documentation
 
-- **[Setup Guide](SETUP.md)** - Detailed installation and configuration
+- **[Install Guide](INSTALL.md)** - Install as native Claude Code subagents (plugin or script)
+- **[Setup Guide](SETUP.md)** - Detailed configuration and project scaffolding
 - **[Agent Documentation](agents/README.md)** - Individual agent capabilities
 - **[Templates](templates/README.md)** - Production-ready templates for all workflows
-- **[Example Workflows](example_workflows.md)** - Common development patterns
+- **[Example Workflows](EXAMPLES.md)** - Common development patterns
 - **[System Verification](SYSTEM_VERIFICATION.md)** - Complete validation report
-- **[API Reference](docs/api.md)** - For advanced integration
+- **[Audit & Improvement Notes](docs/AUDIT-2026-07.md)** - Findings and roadmap
 
 ## 🤝 Contributing
 

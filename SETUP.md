@@ -165,10 +165,10 @@ python scripts/init_project.py
 
 ```bash
 # Option 1: Using Claude Code
-claude "Read agents/master_orchestrator.md and start working on the project I just created"
+claude "Use the gamestudio-orchestrator subagent and start working on the project I just created"
 
 # Option 2: Manual agent activation
-claude "I want to create a [type] game. Read agents/master_orchestrator.md and help me get started"
+claude "I want to create a [type] game. Use the gamestudio-orchestrator subagent and help me get started"
 ```
 
 ## Detailed Setup
@@ -193,7 +193,7 @@ claude "I want to create a [type] game. Read agents/master_orchestrator.md and h
 gamestudio-subagents/
 ├── agents/                    # All agent templates
 │   ├── master_orchestrator.md # Main controller
-│   ├── producer_agent_v2.md   # Project manager
+│   ├── producer_agent.md   # Project manager
 │   └── [other agents].md      # Specialized agents
 ├── scripts/
 │   └── init_project.py        # Project initializer
@@ -241,7 +241,7 @@ python scripts/init_project.py
 # Select: Design Only mode
 
 # 2. Activate design agents
-claude "Read agents/master_orchestrator.md and activate DESIGN MODE for my project"
+claude "Use the gamestudio-orchestrator subagent and activate DESIGN MODE for my project"
 
 # 3. Work through design phases
 # The agents will guide you through concept, systems, and documentation
@@ -255,7 +255,7 @@ python scripts/init_project.py
 # Select: Full Development mode
 
 # 2. Activate all agents
-claude "Read agents/master_orchestrator.md and begin DEVELOPMENT MODE"
+claude "Use the gamestudio-orchestrator subagent and begin DEVELOPMENT MODE"
 
 # 3. Follow milestone-based development
 # Agents will coordinate implementation, art, QA, etc.
@@ -269,7 +269,7 @@ python scripts/init_project.py
 # Select: Prototype mode, Rapid timeline
 
 # 2. Focus on core mechanics
-claude "Read agents/producer_agent_v2.md and create a working prototype in 3 days"
+claude "Use the gamestudio-producer subagent and create a working prototype in 3 days"
 ```
 
 ### Workflow 4: Projects with Custom Development Rules
@@ -287,7 +287,7 @@ python scripts/init_project.py
 cat projects/[your-game]/project-config.json | grep -A 10 "development_rules"
 
 # 3. Producer enforces rules
-claude "Read agents/producer_agent.md and the project-config.json. Begin development and ensure all agents follow the development rules."
+claude "Use the gamestudio-producer subagent and the project-config.json. Begin development and ensure all agents follow the development rules."
 ```
 
 ### Development Rules Examples
@@ -309,16 +309,16 @@ Common rules you might want to set:
 
 ```markdown
 # Initialize Master Orchestrator
-"Read agents/master_orchestrator.md and initialize a new project"
+"Use the gamestudio-orchestrator subagent and initialize a new project"
 
 # Activate specific agent
-"Read agents/sr_game_designer.md and design the core gameplay loop"
+"Use the gamestudio-sr-designer subagent and design the core gameplay loop"
 
 # Check project status
 "Read the project-config.json in projects/[name] and give me a status update"
 
 # Transition between phases
-"Read agents/producer_agent_v2.md and transition from design to development"
+"Use the gamestudio-producer subagent and transition from design to development"
 ```
 
 ### Best Practices
@@ -405,7 +405,7 @@ rmdir /s projects\[project-name]
 **Issue: "Agent not responding correctly"**
 ```markdown
 # Solution: Ensure you're reading the correct agent file
-"Read agents/master_orchestrator.md first, then activate [specific agent]"
+"Use the gamestudio-orchestrator subagent first, then activate [specific agent]"
 ```
 
 **Issue: "Confused agent context"**
@@ -426,7 +426,7 @@ npm install -g @mermaid-js/mermaid-cli
 ### Getting Help
 
 1. **Check agent documentation** - Each agent has detailed instructions
-2. **Review example workflows** - See `example_workflows.md`
+2. **Review example workflows** - See `EXAMPLES.md`
 3. **GitHub Issues** - Report bugs or request features
 4. **Community Discord** - Join discussions (link in README)
 
@@ -439,7 +439,7 @@ To create a custom agent:
 1. Copy an existing agent template
 2. Modify responsibilities and protocols
 3. Update `master_orchestrator.md` to recognize new agent
-4. Add to appropriate workflow in `producer_agent_v2.md`
+4. Add to appropriate workflow in `producer_agent.md`
 
 ### Integration with External Tools
 
@@ -506,7 +506,7 @@ jobs:
 ## Support
 
 - **Documentation**: See README.md
-- **Examples**: Check example_workflows.md
+- **Examples**: Check EXAMPLES.md
 - **Issues**: GitHub Issues page
 - **Community**: Join our Discord
 

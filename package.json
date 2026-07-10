@@ -31,8 +31,8 @@
     "python": ">=3.8"
   },
   "scripts": {
-    "init": "python scripts/init_project.py",
-    "manage": "python scripts/project_manager.py",
-    "test": "python scripts/test_project_workflow.py && python scripts/test_engine_system.py"
+    "init": "python3 scripts/init_project.py",
+    "manage": "python3 scripts/project_manager.py",
+    "test": "python3 scripts/test_project_workflow.py && python3 scripts/test_engine_system.py"
   }
 }

@@ -1,0 +1,13 @@
+{
+  "name": "gamestudio-subagents",
+  "description": "An AI game-development studio: 12 specialized Claude Code subagents (orchestrator, producer, market analyst, data scientist, senior/mid designers, mechanics & game-feel engineers, senior & technical artists, UI/UX, QA) for Godot / Unity / Unreal projects.",
+  "version": "2.0.0",
+  "author": {
+    "name": "Tuna Pamir",
+    "url": "https://github.com/pamirtuna"
+  },
+  "homepage": "https://github.com/thomasphillips3/gamestudio-subagents",
+  "repository": "https://github.com/thomasphillips3/gamestudio-subagents",
+  "license": "MIT",
+  "keywords": ["game-development", "godot", "unity", "unreal", "ai-agents", "subagents"]
+}

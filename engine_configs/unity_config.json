@@ -1,6 +1,6 @@
 {
   "engine": "Unity",
-  "version": "2023.2 LTS",
+  "version": "6000.0 LTS",
   "project_structure": {
     "source": {
       "Scripts": "C# scripts and components",

@@ -1,0 +1,18 @@
+{
+  "name": "gamestudio",
+  "owner": {
+    "name": "thomasphillips3",
+    "url": "https://github.com/thomasphillips3"
+  },
+  "plugins": [
+    {
+      "name": "gamestudio-subagents",
+      "source": ".",
+      "description": "12-agent AI game development studio for Godot / Unity / Unreal.",
+      "version": "2.0.0",
+      "author": { "name": "Tuna Pamir", "url": "https://github.com/pamirtuna" },
+      "category": "development",
+      "keywords": ["game-development", "ai-agents", "godot", "unity", "unreal"]
+    }
+  ]
+}
